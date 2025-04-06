@@ -301,9 +301,9 @@ Gradually roll out optimizations to ensure stability.
 - **Problem:** Database credentials were hardcoded in source files.
 - **Fix:** Migrated to environment variables and configuration files.
 
-#### ❌ SQL Injection Vulnerabilities
-- **Problem:** Used basic Statement interface risking SQL injection.
-- **Fix:** Replaced all queries with parameterized PreparedStatement.
+#### ❌ Raw Statement Usage
+- **Problem:** Used `Statement` instead of `PreparedStatement`, risking SQL injection and poor performance.
+- **Fix:** Switched to `PreparedStatement` for all queries.
 
 #### ❌ Inefficient Data Retrieval
 - **Problem:** Used `SELECT *` queries fetching unnecessary columns.
@@ -318,8 +318,7 @@ Gradually roll out optimizations to ensure stability.
 - **Fix:** Integrated Redis cache for frequently accessed data.
 
 **Impact of Changes:**
-1. Improved security against SQL injection
-2. Better memory management
-3. Reduced database load
-4. More stable application performance
-5. Configurable credentials for different environments
+1. Better memory management
+2. Reduced database load
+3. More stable application performance
+4. Configurable credentials for different environments
