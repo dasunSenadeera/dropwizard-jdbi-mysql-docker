@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  presentation-service:
+    build: .
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_URL=jdbc:mysql://db:3306/conference_presentations?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - DB_USER=presentation_user
+      - DB_PASSWORD=presentation_pass
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8081/healthcheck || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=conference_presentations
+      - MYSQL_USER=presentation_user
+      - MYSQL_PASSWORD=presentation_pass
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--protocol=tcp", "-u", "root", "-prootpassword"]
+      interval: 5s
+      timeout: 10s
+      retries: 15
+      start_period: 45s
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --host_cache_size=0
+
+volumes:
+  db_data:

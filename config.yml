@@ -1,0 +1,38 @@
+server:
+  type: default
+  applicationConnectors:
+    - type: http
+      port: 8080
+      bindHost: 0.0.0.0
+  adminConnectors:
+    - type: http
+      port: 8081
+      bindHost: 0.0.0.0
+
+
+database:
+  # Your existing database configuration
+  driverClass: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://db:3306/conference_presentations
+  user: root
+  password: password
+  properties:
+    charSet: UTF-8
+  maxWaitForConnection: 1s
+  validationQuery: "SELECT 1"
+  minSize: 8
+  maxSize: 32
+
+logging:
+  # Your existing logging configuration
+  level: INFO
+  loggers:
+    com.conference: DEBUG
+  appenders:
+    - type: console
+    - type: file
+      currentLogFilename: ./logs/presentation-service.log
+      archivedLogFilenamePattern: ./logs/presentation-service-%d.log.gz
+      archivedFileCount: 5
+
+apiKey: expected-api-key
