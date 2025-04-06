@@ -111,7 +111,7 @@ CREATE INDEX idx_speaker_name ON sessions(speaker_name);
 #### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-org/speaker-session-api.git
+git clone https://github.com/dasunSenadeera/dropwizard-jdbi-mysql-docker.git
 cd speaker-session-api
 ```
 
