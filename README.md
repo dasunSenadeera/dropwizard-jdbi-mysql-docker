@@ -151,8 +151,11 @@ curl http://localhost:8081/healthcheck
 │   └── 01-speaker-sessions.sql    # DB init script
 ├── SessionServiceApplication.java # App entry point
 ├── SessionServiceConfiguration.java
+├── test/
+│   └── SessionResourceTest.java       # Unit Tests
 ├── config.yml                     # App configuration
 └── docker-compose.yml             # Docker stack
+
 ```
 
 ---
